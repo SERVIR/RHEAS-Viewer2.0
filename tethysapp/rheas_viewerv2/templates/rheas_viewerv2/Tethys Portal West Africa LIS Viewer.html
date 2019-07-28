@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<!--[if IE 7]> <html lang="en" class="ie ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en"  class="ie ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en"  class="ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    
+
+    
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="generator" content="Django">
+    
+
+    
+
+    <title>
+      
+         Tethys Portal
+      
+      West Africa LIS Viewer
+    </title>
+
+    
+
+    
+      <link rel="shortcut icon" href="http://localhost:8000/static/tethys_portal/images/default_favicon.png">
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+      <link href="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/bootstrap.css" rel="stylesheet">
+      <link href="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/app_base.css" rel="stylesheet">
+      
+      
+    
+<link href="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/select2.css" rel="stylesheet">
+<link rel="stylesheet" href="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/leaflet.css">
+<link rel="stylesheet" href="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/leaflet_002.css">
+<link rel="stylesheet" href="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/jquery-ui.css">
+<link rel="stylesheet" href="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/leaflet_003.css">
+<link rel="stylesheet" href="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/easy-button.css">
+
+
+    
+
+      <script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/jquery-2.js" type="text/javascript"></script>
+      <script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/bootstrap.js" type="text/javascript"></script>
+      
+    
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/moment.js"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/leaflet_004.js"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/easy-button.js"></script>
+<script type="text/javascript" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/iso8601.js"></script>
+<script type="text/javascript" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/leaflet.js"></script>
+<script type="text/javascript" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/leaflet_003.js"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/select2.js"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/highstock.js"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/highcharts-more.js"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/exporting.js"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/export-csv.js"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/no-data-to-display.js"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/jquery-ui.js"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/chroma.js"></script>
+
+
+    
+      
+
+
+
+
+
+
+
+
+      <link href="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/session_security_override.css" rel="stylesheet">
+    
+  <style id="_i6aomd">.leaflet-sbs-range {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    z-index: 999;
+}
+.leaflet-sbs-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+    width: 4px;
+    background-color: #fff;
+    pointer-events: none;
+    z-index: 999;
+}
+</style><style id="_1tlt668">.leaflet-sbs-range {
+    -webkit-appearance: none;
+    display: inline-block!important;
+    vertical-align: middle;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: rgba(0, 0, 0, 0.25);
+    min-width: 100px;
+    cursor: pointer;
+    pointer-events: none;
+    z-index: 999;
+}
+.leaflet-sbs-range::-ms-fill-upper {
+    background: transparent;
+}
+.leaflet-sbs-range::-ms-fill-lower {
+    background: rgba(255, 255, 255, 0.25);
+}
+/* Browser thingies */
+
+.leaflet-sbs-range::-moz-range-track {
+    opacity: 0;
+}
+.leaflet-sbs-range::-ms-track {
+    opacity: 0;
+}
+.leaflet-sbs-range::-ms-tooltip {
+    display: none;
+}
+/* For whatever reason, these need to be defined
+ * on their own so dont group them */
+
+.leaflet-sbs-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    cursor: ew-resize;
+    pointer-events: auto;
+    border: 1px solid #ddd;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAABlBMVEV9fX3///+Kct39AAAAAnRSTlP/AOW3MEoAAAA9SURBVFjD7dehDQAwDANBZ/+l2wmKoiqR7pHRcaeaCxAIBAL/g7k9JxAIBAKBQCAQCAQC14H+MhAIBE4CD3fOFvGVBzhZAAAAAElFTkSuQmCC");
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+}
+.leaflet-sbs-range::-ms-thumb {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    cursor: ew-resize;
+    pointer-events: auto;
+    border: 1px solid #ddd;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAABlBMVEV9fX3///+Kct39AAAAAnRSTlP/AOW3MEoAAAA9SURBVFjD7dehDQAwDANBZ/+l2wmKoiqR7pHRcaeaCxAIBAL/g7k9JxAIBAKBQCAQCAQC14H+MhAIBE4CD3fOFvGVBzhZAAAAAElFTkSuQmCC");
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+}
+.leaflet-sbs-range::-moz-range-thumb {
+    padding: 0;
+    right: 0    ;
+    background: #fff;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    cursor: ew-resize;
+    pointer-events: auto;
+    border: 1px solid #ddd;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAABlBMVEV9fX3///+Kct39AAAAAnRSTlP/AOW3MEoAAAA9SURBVFjD7dehDQAwDANBZ/+l2wmKoiqR7pHRcaeaCxAIBAL/g7k9JxAIBAKBQCAQCAQC14H+MhAIBE4CD3fOFvGVBzhZAAAAAElFTkSuQmCC");
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+}
+.leaflet-sbs-range:disabled::-moz-range-thumb {
+    cursor: default;
+}
+.leaflet-sbs-range:disabled::-ms-thumb {
+    cursor: default;
+}
+.leaflet-sbs-range:disabled::-webkit-slider-thumb {
+    cursor: default;
+}
+.leaflet-sbs-range:disabled {
+    cursor: default;
+}
+.leaflet-sbs-range:focus {
+    outline: none!important;
+}
+.leaflet-sbs-range::-moz-focus-outer {
+    border: 0;
+}
+
+</style></head>
+
+  
+  <body>
+    
+      <div id="app-content-wrapper" class="show-nav">
+        
+          <div id="app-header" class="clearfix">
+            <div class="tethys-app-header with-transition show-header" style="background: #c0392b;">
+              <div id="nav-title-wrapper">
+                  
+                    <a href="javascript:void(0);" class="toggle-nav">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </a>
+                  
+                  
+                    <div class="icon-wrapper">
+                      
+  
+  <img src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/logo.png" style="background-color: rgb(192, 57, 43);">
+
+                    </div>
+                  
+                  
+                    <div class="app-title-wrapper">
+                      <span class="app-title">West Africa LIS Viewer</span>
+                    </div>
+                  
+              </div>
+
+              
+              <div id="header-buttons-wrapper">
+                  
+<div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Graph">
+    <a data-toggle="modal" data-target="#chart-modal"><span class="glyphicon glyphicon-stats"></span></a>
+</div>
+<div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
+  <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
+</div>
+
+                  
+                      
+                  
+                  
+                    <div class="header-button exit-button">
+                      <a href="javascript:void(0);" onclick="TETHYS_APP_BASE.exit_app('/apps/');" data-toggle="tooltip" data-placement="bottom" title="Exit">×</a>
+                    </div>
+                  
+              </div>
+              
+            </div>
+          </div>
+        
+        
+          <div id="app-content" class="with-transition show-app-content">
+            
+              
+            
+            
+            
+              <div id="app-navigation">
+                
+                  <ul class="nav nav-pills nav-stacked">
+                    
+<br>
+
+
+<label>
+  Select a Variable
+</label>
+<select class="var_table select2-hidden-accessible" name="var_table" id="var_table" style="width: 100%" tabindex="-1" aria-hidden="true"><option value="Rainf" selected="selected">precipitation rate (kg m-2 s-1)</option><option value="Evap">total evapotranspiration (kg m-2 s-1)</option><option value="Qs">surface runoff (kg m-2 s-1)</option><option value="Qsb">subsurface runoff (kg m-2 s-1)</option><option value="SoilMoist_SF">surface soil moisture (m^3 m-3)</option><option value="SoilMoist_RZ">rootzone soil moisture (m^3 m-3)</option><option value="SoilMoist_TT">total soil moisture (m^3 m-3)</option><option value="CanopInt">canopy surface water (kg m-2)</option><option value="WaterTableD">water table depth (m)</option><option value="TWS">terrestrial water storage (mm)</option><option value="GWS">ground water storage (mm)</option><option value="TotalPrecip">total precipitation (kg m-2 s-1)</option><option value="Streamflow">streamflow (m3 s-1)</option><option value="RiverFlowVelocity">river flow velocity (m s-1)</option><option value="FloodedFrac">flooded fraction (-)</option><option value="SurfElev">surface water elevation (m)</option><option value="SWS">surface water storage (mm)</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-var_table-container"><span class="select2-selection__rendered" id="select2-var_table-container" title="precipitation rate (kg m-2 s-1)">precipitation rate (kg m-2 s-1)</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+<br>
+<label>
+  Start From 
+</label>
+<input type="text" id="rfd" class="hasDatepicker" value="04/03/2017">
+
+<br>
+<label>
+  End On
+</label>
+<input type="text" id="rtd" class="hasDatepicker" value="07/30/2019">
+<br>
+<label for="adv-opt" class="formText" style="border-bottom:2px solid black;">Advanced options:</label>
+<br>
+<label for="range-min" class="formText">Range Min</label>
+<input type="text" class="form-control" id="range-min" name="range-min" style="width: 100%" value="1.0e-05">
+<label for="range-max" class="formText">Range Max</label>
+<input type="text" class="form-control" id="range-max" name="range-max" style="width: 100%" value="6.0e-05">
+<label>
+  Select a Style
+</label>
+<select class="style_table select2-hidden-accessible" name="style_table" id="style_table" style="width: 100%" tabindex="-1" aria-hidden="true">
+
+<option value="enspmm-prectot" selected="selected">PRECIP 1</option><option value="enspmm-prec1h">PRECIP 2</option><option value="sst_36">SST-36</option><option value="greyscale">Greyscale</option><option value="rainbow">Rainbow</option><option value="occam">OCCAM</option><option value="occam_pastel-30">OCCAM Pastel</option><option value="redblue">Red-Blue</option><option value="ncview">NetCDF Viewer</option><option value="alg">ALG</option><option value="alg2">ALG 2</option><option value="ferret">Ferret</option><option value="tmp_2maboveground">TMP 1</option><option value="dpt_2maboveground">TMP 2</option><option value="enspmm-refc">Reflectivity</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-style_table-container"><span class="select2-selection__rendered" id="select2-style_table-container" title="PRECIP 1">PRECIP 1</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+
+<br>
+<br>
+<b>Coordinates</b>
+<div id="mouse-position" class="well well-sm">Latitude:-0.17578, Longitude:-16.04004</div>
+<label id="opacity-label">Curent Opacity:&nbsp;</label><span id="opacity" readonly="" style="border:0; color: #000000; font-weight:normal;">0.7</span>
+<div style="width:90%;left:5px;" id="opacity-slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 62.5%;"></span></div>
+<br>
+<div class="error"></div>
+<div id="metadata" style="display: none" data-var-options="[{&quot;id&quot;: &quot;Rainf&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;precipitation rate&quot;, &quot;units&quot;: &quot;kg m-2 s-1&quot;, &quot;min&quot;: &quot;1.0e-05&quot;, &quot;max&quot;: &quot;6.0e-05&quot;, &quot;style&quot;: &quot;enspmm-prectot&quot;}, {&quot;id&quot;: &quot;Evap&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;total evapotranspiration&quot;, &quot;units&quot;: &quot;kg m-2 s-1&quot;, &quot;min&quot;: &quot;0.0&quot;, &quot;max&quot;: &quot;5.0e-05&quot;, &quot;style&quot;: &quot;enspmm-prectot&quot;}, {&quot;id&quot;: &quot;Qs&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;surface runoff&quot;, &quot;units&quot;: &quot;kg m-2 s-1&quot;, &quot;min&quot;: &quot;1.0e-06&quot;, &quot;max&quot;: &quot;9.0e-06&quot;, &quot;style&quot;: &quot;enspmm-prectot&quot;}, {&quot;id&quot;: &quot;Qsb&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;subsurface runoff&quot;, &quot;units&quot;: &quot;kg m-2 s-1&quot;, &quot;min&quot;: &quot;1.0e-09&quot;, &quot;max&quot;: &quot;6.0e-09&quot;, &quot;style&quot;: &quot;enspmm-prectot&quot;}, {&quot;id&quot;: &quot;SoilMoist_SF&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;surface soil moisture&quot;, &quot;units&quot;: &quot;m^3 m-3&quot;, &quot;min&quot;: &quot;0.0&quot;, &quot;max&quot;: &quot;6.0&quot;, &quot;style&quot;: &quot;enspmm-prectot&quot;}, {&quot;id&quot;: &quot;SoilMoist_RZ&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;rootzone soil moisture&quot;, &quot;units&quot;: &quot;m^3 m-3&quot;, &quot;min&quot;: &quot;0.0&quot;, &quot;max&quot;: &quot;300&quot;, &quot;style&quot;: &quot;enspmm-prectot&quot;}, {&quot;id&quot;: &quot;SoilMoist_TT&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;total soil moisture&quot;, &quot;units&quot;: &quot;m^3 m-3&quot;, &quot;min&quot;: &quot;0.0&quot;, &quot;max&quot;: &quot;2000&quot;, &quot;style&quot;: &quot;enspmm-prectot&quot;}, {&quot;id&quot;: &quot;CanopInt&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;canopy surface water&quot;, &quot;units&quot;: &quot;kg m-2&quot;, &quot;min&quot;: &quot;0.0&quot;, &quot;max&quot;: &quot;0.03&quot;, &quot;style&quot;: &quot;enspmm-prectot&quot;}, {&quot;id&quot;: &quot;WaterTableD&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;water table depth&quot;, &quot;units&quot;: &quot;m&quot;, &quot;min&quot;: &quot;0&quot;, &quot;max&quot;: &quot;6.0&quot;, &quot;style&quot;: &quot;rainbow&quot;}, {&quot;id&quot;: &quot;TWS&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;terrestrial water storage&quot;, &quot;units&quot;: &quot;mm&quot;, &quot;min&quot;: &quot;0&quot;, &quot;max&quot;: &quot;20000&quot;, &quot;style&quot;: &quot;rainbow&quot;}, {&quot;id&quot;: &quot;GWS&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;ground water storage&quot;, &quot;units&quot;: &quot;mm&quot;, &quot;min&quot;: &quot;0&quot;, &quot;max&quot;: &quot;1700&quot;, &quot;style&quot;: &quot;rainbow&quot;}, {&quot;id&quot;: &quot;TotalPrecip&quot;, &quot;category&quot;: &quot;SURFACEMODEL&quot;, &quot;display_name&quot;: &quot;total precipitation&quot;, &quot;units&quot;: &quot;kg m-2 s-1&quot;, &quot;min&quot;: &quot;1.0e-05&quot;, &quot;max&quot;: &quot;6.0e-05&quot;, &quot;style&quot;: &quot;enspmm-prectot&quot;}, {&quot;id&quot;: &quot;Streamflow&quot;, &quot;category&quot;: &quot;ROUTING&quot;, &quot;display_name&quot;: &quot;streamflow&quot;, &quot;units&quot;: &quot;m3 s-1&quot;, &quot;min&quot;: &quot;10.0&quot;, &quot;max&quot;: &quot;5000&quot;, &quot;style&quot;: &quot;enspmm-refc&quot;}, {&quot;id&quot;: &quot;RiverFlowVelocity&quot;, &quot;category&quot;: &quot;ROUTING&quot;, &quot;display_name&quot;: &quot;river flow velocity&quot;, &quot;units&quot;: &quot;m s-1&quot;, &quot;min&quot;: &quot;0.01&quot;, &quot;max&quot;: &quot;0.8&quot;, &quot;style&quot;: &quot;enspmm-refc&quot;}, {&quot;id&quot;: &quot;FloodedFrac&quot;, &quot;category&quot;: &quot;ROUTING&quot;, &quot;display_name&quot;: &quot;flooded fraction&quot;, &quot;units&quot;: &quot;-&quot;, &quot;min&quot;: &quot;0.01&quot;, &quot;max&quot;: &quot;1.0&quot;, &quot;style&quot;: &quot;enspmm-refc&quot;}, {&quot;id&quot;: &quot;SurfElev&quot;, &quot;category&quot;: &quot;ROUTING&quot;, &quot;display_name&quot;: &quot;surface water elevation&quot;, &quot;units&quot;: &quot;m&quot;, &quot;min&quot;: &quot;0.0&quot;, &quot;max&quot;: &quot;1600&quot;, &quot;style&quot;: &quot;enspmm-refc&quot;}, {&quot;id&quot;: &quot;SWS&quot;, &quot;category&quot;: &quot;ROUTING&quot;, &quot;display_name&quot;: &quot;surface water storage&quot;, &quot;units&quot;: &quot;mm&quot;, &quot;min&quot;: &quot;2.0&quot;, &quot;max&quot;: &quot;1000&quot;, &quot;style&quot;: &quot;enspmm-refc&quot;}]" data-date-options="{&quot;colors&quot;: [[&quot;PRECIP 1&quot;, &quot;enspmm-prectot&quot;], [&quot;PRECIP 2&quot;, &quot;enspmm-prec1h&quot;], [&quot;SST-36&quot;, &quot;sst_36&quot;], [&quot;Greyscale&quot;, &quot;greyscale&quot;], [&quot;Rainbow&quot;, &quot;rainbow&quot;], [&quot;OCCAM&quot;, &quot;occam&quot;], [&quot;OCCAM Pastel&quot;, &quot;occam_pastel-30&quot;], [&quot;Red-Blue&quot;, &quot;redblue&quot;], [&quot;NetCDF Viewer&quot;, &quot;ncview&quot;], [&quot;ALG&quot;, &quot;alg&quot;], [&quot;ALG 2&quot;, &quot;alg2&quot;], [&quot;Ferret&quot;, &quot;ferret&quot;], [&quot;TMP 1&quot;, &quot;tmp_2maboveground&quot;], [&quot;TMP 2&quot;, &quot;dpt_2maboveground&quot;], [&quot;Reflectivity&quot;, &quot;enspmm-refc&quot;]]}" data-wms-url="https://tethyswa.servirglobal.net/thredds/wms/tethys/walis/" data-thredds-options="{&quot;catalog&quot;: {&quot;retrospective&quot;: {&quot;SURFACEMODEL&quot;: [&quot;201811&quot;, &quot;201810&quot;, &quot;201809&quot;, &quot;201808&quot;, &quot;201807&quot;, &quot;201806&quot;, &quot;201805&quot;, &quot;201804&quot;, &quot;201803&quot;, &quot;201802&quot;, &quot;201801&quot;, &quot;201712&quot;, &quot;201711&quot;, &quot;201710&quot;, &quot;201709&quot;, &quot;201708&quot;, &quot;201707&quot;, &quot;201706&quot;, &quot;201705&quot;, &quot;201704&quot;, &quot;201703&quot;, &quot;201702&quot;, &quot;201701&quot;, &quot;201612&quot;, &quot;201611&quot;, &quot;201610&quot;, &quot;201609&quot;, &quot;201608&quot;, &quot;201607&quot;, &quot;201606&quot;, &quot;201605&quot;, &quot;201604&quot;, &quot;201603&quot;, &quot;201602&quot;, &quot;201601&quot;, &quot;201512&quot;, &quot;201511&quot;, &quot;201510&quot;, &quot;201509&quot;, &quot;201508&quot;, &quot;201507&quot;, &quot;201506&quot;, &quot;201505&quot;, &quot;201504&quot;, &quot;201503&quot;, &quot;201502&quot;, &quot;201501&quot;, &quot;201412&quot;, &quot;201411&quot;, &quot;201410&quot;, &quot;201409&quot;, &quot;201408&quot;, &quot;201407&quot;, &quot;201406&quot;, &quot;201405&quot;, &quot;201404&quot;, &quot;201403&quot;, &quot;201402&quot;, &quot;201401&quot;, &quot;201312&quot;, &quot;201311&quot;, &quot;201310&quot;, &quot;201309&quot;, &quot;201308&quot;, &quot;201307&quot;, &quot;201306&quot;, &quot;201305&quot;, &quot;201304&quot;, &quot;201303&quot;, &quot;201302&quot;, &quot;201301&quot;, &quot;201212&quot;, &quot;201211&quot;, &quot;201210&quot;, &quot;201209&quot;, &quot;201208&quot;, &quot;201207&quot;, &quot;201206&quot;, &quot;201205&quot;, &quot;201204&quot;, &quot;201203&quot;, &quot;201202&quot;, &quot;201201&quot;, &quot;201112&quot;, &quot;201111&quot;, &quot;201110&quot;, &quot;201109&quot;, &quot;201108&quot;, &quot;201107&quot;, &quot;201106&quot;, &quot;201105&quot;, &quot;201104&quot;, &quot;201103&quot;, &quot;201102&quot;, &quot;201101&quot;, &quot;201012&quot;, &quot;201011&quot;, &quot;201010&quot;, &quot;201009&quot;, &quot;201008&quot;, &quot;201007&quot;, &quot;201006&quot;, &quot;201005&quot;, &quot;201004&quot;, &quot;201003&quot;, &quot;201002&quot;, &quot;201001&quot;], &quot;ROUTING&quot;: [&quot;201811&quot;, &quot;201810&quot;, &quot;201809&quot;, &quot;201808&quot;, &quot;201807&quot;, &quot;201806&quot;, &quot;201805&quot;, &quot;201804&quot;, &quot;201803&quot;, &quot;201802&quot;, &quot;201801&quot;, &quot;201712&quot;, &quot;201711&quot;, &quot;201710&quot;, &quot;201709&quot;, &quot;201708&quot;, &quot;201707&quot;, &quot;201706&quot;, &quot;201705&quot;, &quot;201704&quot;, &quot;201703&quot;, &quot;201702&quot;, &quot;201701&quot;, &quot;201612&quot;, &quot;201611&quot;, &quot;201610&quot;, &quot;201609&quot;, &quot;201608&quot;, &quot;201607&quot;, &quot;201606&quot;, &quot;201605&quot;, &quot;201604&quot;, &quot;201603&quot;, &quot;201602&quot;, &quot;201601&quot;, &quot;201512&quot;, &quot;201511&quot;, &quot;201510&quot;, &quot;201509&quot;, &quot;201508&quot;, &quot;201507&quot;, &quot;201506&quot;, &quot;201505&quot;, &quot;201504&quot;, &quot;201503&quot;, &quot;201502&quot;, &quot;201501&quot;, &quot;201412&quot;, &quot;201411&quot;, &quot;201410&quot;, &quot;201409&quot;, &quot;201408&quot;, &quot;201407&quot;, &quot;201406&quot;, &quot;201405&quot;, &quot;201404&quot;, &quot;201403&quot;, &quot;201402&quot;, &quot;201401&quot;, &quot;201312&quot;, &quot;201311&quot;, &quot;201310&quot;, &quot;201309&quot;, &quot;201308&quot;, &quot;201307&quot;, &quot;201306&quot;, &quot;201305&quot;, &quot;201304&quot;, &quot;201303&quot;, &quot;201302&quot;, &quot;201301&quot;, &quot;201212&quot;, &quot;201211&quot;, &quot;201210&quot;, &quot;201209&quot;, &quot;201208&quot;, &quot;201207&quot;, &quot;201206&quot;, &quot;201205&quot;, &quot;201204&quot;, &quot;201203&quot;, &quot;201202&quot;, &quot;201201&quot;, &quot;201112&quot;, &quot;201111&quot;, &quot;201110&quot;, &quot;201109&quot;, &quot;201108&quot;, &quot;201107&quot;, &quot;201106&quot;, &quot;201105&quot;, &quot;201104&quot;, &quot;201103&quot;, &quot;201102&quot;, &quot;201101&quot;, &quot;201012&quot;, &quot;201011&quot;, &quot;201010&quot;, &quot;201009&quot;, &quot;201008&quot;, &quot;201007&quot;, &quot;201006&quot;, &quot;201005&quot;, &quot;201004&quot;, &quot;201003&quot;, &quot;201002&quot;, &quot;201001&quot;]}, &quot;forecast_geos5&quot;: {&quot;SURFACEMODEL&quot;: [&quot;201905&quot;, &quot;201904&quot;, &quot;201903&quot;, &quot;201902&quot;, &quot;201901&quot;, &quot;201812&quot;], &quot;ROUTING&quot;: [&quot;201905&quot;, &quot;201904&quot;, &quot;201903&quot;, &quot;201902&quot;, &quot;201901&quot;, &quot;201812&quot;]}, &quot;forecast_esp&quot;: {&quot;SURFACEMODEL&quot;: [&quot;201905&quot;, &quot;201904&quot;, &quot;201903&quot;, &quot;201902&quot;, &quot;201901&quot;, &quot;201812&quot;], &quot;ROUTING&quot;: [&quot;201905&quot;, &quot;201904&quot;, &quot;201903&quot;, &quot;201902&quot;, &quot;201901&quot;, &quot;201812&quot;]}}}"></div>
+<input type="text" name="point-lat-lon" id="point-lat-lon" value="1.40625,22.350076" hidden="">
+<input type="text" name="poly-lat-lon" id="poly-lat-lon" hidden="">
+<input type="text" name="shp-lat-lon" id="shp-lat-lon" hidden="">
+
+                  </ul>
+                
+              </div>
+            
+
+            
+            <div id="inner-app-content">
+              
+<style>
+  #map {
+    height: 100%;
+    width: 100%;
+  }
+  .info {
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: black;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    width:120px;
+    height:270px;
+  }
+</style>
+
+<div id="map" class="map leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/14.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(513px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/14_007.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(769px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/15_005.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(513px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/15_008.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(769px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/13_004.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(513px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/13_005.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(769px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/14_003.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(257px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/14_004.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1025px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/15_006.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(257px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/15_007.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1025px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/16_003.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(513px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/16_007.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(769px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/13_006.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(257px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/13_003.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1025px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/16_004.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(257px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/16_005.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1025px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/14_008.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/14_006.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1281px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/15_004.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/15_002.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1281px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/13_008.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/13_002.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1281px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/16.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/16_002.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1281px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/14_002.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-255px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/14_005.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1537px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/15_003.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-255px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/15.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1537px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/13.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-255px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/13_007.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1537px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/16_008.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-255px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/16_006.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1537px, 659px, 0px); opacity: 1;"></div></div><div class="leaflet-layer " style="z-index: 1; opacity: 0.7;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_008.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(513px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_009.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(769px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_003.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(513px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_017.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(769px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_011.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(513px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_004.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(769px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_015.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(257px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_007.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1025px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_027.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(257px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_033.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1025px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_029.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(513px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(769px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_020.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(257px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_031.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1025px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_014.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(257px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_026.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1025px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_010.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_018.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1281px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_012.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_002.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1281px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_024.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_023.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1281px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_016.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_022.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1281px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_028.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-255px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_005.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1537px, 147px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_019.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-255px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_021.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1537px, 403px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_013.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-255px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_025.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1537px, -109px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_032.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-255px, 659px, 0px); opacity: 1;"><img alt="" role="presentation" src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_030.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1537px, 659px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-overlay-pane"></div><div class="leaflet-pane leaflet-marker-pane"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(4152.5px, 3785px, 0px) scale(16);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in">+</a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out">−</a></div><div class="leaflet-draw leaflet-control"><div class="leaflet-draw-section"><div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top"><a class="leaflet-draw-draw-polygon" href="#" title="Draw a polygon"><span class="sr-only">Draw a polygon</span></a><a class="leaflet-draw-draw-marker" href="#" title="Draw a marker"><span class="sr-only">Draw a marker</span></a><a class="leaflet-draw-draw-shapefile" href="#" title="Upload a shapefile (.zip)"><input type="file" id="leaflet-draw-shapefile-selector" accept=".zip,.json,.geojson"><div id="leaflet-draw-draw-shapefile-btn"></div></a></div><ul class="leaflet-draw-actions"></ul></div><div class="leaflet-draw-section"><div class="leaflet-draw-toolbar leaflet-bar"><a class="leaflet-draw-edit-remove leaflet-disabled" href="#" title="No layers to delete"><span class="sr-only">Delete layers</span></a></div><ul class="leaflet-draw-actions"></ul></div></div><div class="leaflet-bar easy-button-container leaflet-control"><button class="easy-button-button leaflet-bar-part leaflet-interactive enable-compare-active" type="button" title="Enable side by side comparison"><span class="button-state state-enable-compare enable-compare-active"><span class="glyphicon glyphicon-resize-horizontal"></span></span></button></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"><div class="leaflet-bar leaflet-bar-horizontal leaflet-bar-timecontrol leaflet-control hidden"><a class="leaflet-control-timecontrol timecontrol-backward" href="#" title="Backward"></a><a class="leaflet-control-timecontrol timecontrol-play play" href="#" title="Play"></a><a class="leaflet-control-timecontrol timecontrol-forward" href="#" title="Forward"></a><a class="leaflet-control-timecontrol timecontrol-loop looped" href="#" title="Loop"></a><a class="leaflet-control-timecontrol timecontrol-date" href="#" title="Date">Time not available</a><div class="leaflet-control-timecontrol timecontrol-slider timecontrol-dateslider"><div class="slider has-limits"><div class="range" style="transform: translate3d(0px, 0px, 0px); width: 0px;"></div><div class="knob lower" style="transform: translate3d(0px, 0px, 0px);"></div><div class="knob upper" style="transform: translate3d(0px, 0px, 0px);"></div><div class="knob main" style="transform: translate3d(0px, 0px, 0px);"></div></div></div><div class="leaflet-control-timecontrol timecontrol-slider timecontrol-speed"><span class="speed">1fps</span><div class="slider"><div class="knob" style="transform: translate3d(0px, 0px, 0px);"></div></div></div></div></div><div class="leaflet-bottom leaflet-right"><div class="info legend leaflet-control"><img src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/LIS_SERVIR_WA_201905310000_006.png" alt="legend"></div><div class="leaflet-control-attribution leaflet-control"><a href="http://leafletjs.com/" title="A JS library for interactive maps">Leaflet</a> | © <a href="http://openstreetmap.org/">OpenStreetMap</a> Contributors</div></div></div></div>
+
+
+
+
+
+              
+              
+                <div id="app-actions" style="background-color: rgba(192, 57, 43, 0.5);">
+                  
+
+
+                  <div id="app-actions-spacer"></div>
+                </div>
+              
+            </div>
+          </div>
+        
+      </div>
+    
+
+    
+
+    
+<!-- Help Modal -->
+<div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h5 class="modal-title" id="help-modal-label">Help</h5>
+            </div>
+            <div class="modal-body">
+                <h1>Disclaimer:</h1>
+                <p>This application is currently in Beta. It is not to 
+be used for any operational purpose.The SERVIR Project, NASA, and USAID,
+ make no express or implied warranty of this application and associated 
+data as to the merchantability or fitness for a particular purpose. 
+Neither the US Government nor its contractors shall be liable for 
+special, consequential or incidental damages attributed to this 
+application and associated data.</p>
+                <p><a href="https://servirglobal.net/Privacy-Terms-of-Use" target="_blank">Privacy and Terms of Use</a></p>
+                <p>For questions, comments and/or concerns contact sarva.pulla@nasa.gov</p>
+            </div>
+            <div class="modal-footer">
+                <div id="logos" align="center">
+                    <div class="logo-image"><a href="http://www.usaid.gov/" target="_blank"><img src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/usaid.png"></a></div>
+                    <div class="logo-image"><a href="http://appliedsciences.nasa.gov/" target="_blank"><img src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/nasa.png"></a></div>
+                    <div class="logo-image"><a href="http://www.cilss.bf/" target="_blank"><img src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/cilss.png"></a></div>
+                    <div class="logo-image"><a href="http://www.rcmrd.org/" target="_blank"><img src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/rcmrd.png"></a></div>
+                    <div class="logo-image"><a href="http://www.icimod.org/" target="_blank"><img src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/icimod.png"></a></div>
+                    <div class="logo-image"><a href="http://www.adpc.net/" target="_blank"><img src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/adpc.png"></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Show TS Plot -->
+<div class="modal fade" id="chart-modal" tabindex="-1" role="dialog" aria-labelledby="chart-modal-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h5 class="modal-title" id="chart-modal-label">Chart</h5>
+            </div>
+            <div class="modal-body">
+                <div class="error"></div>
+                <div class="chart-wrapper">
+                    <div class="chart-inner" style="width:100%;height:100%;">
+                        <div id="cube" class="sk-cube-grid hidden" align="center">
+                            <div class="sk-cube sk-cube1"></div>
+                            <div class="sk-cube sk-cube2"></div>
+                            <div class="sk-cube sk-cube3"></div>
+                            <div class="sk-cube sk-cube4"></div>
+                            <div class="sk-cube sk-cube5"></div>
+                            <div class="sk-cube sk-cube6"></div>
+                            <div class="sk-cube sk-cube7"></div>
+                            <div class="sk-cube sk-cube8"></div>
+                            <div class="sk-cube sk-cube9"></div>
+                        </div>
+                        <div id="plotter" name="plotter" style="height:100%;width:100%">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Show Compare Modal-->
+<div class="modal fade" id="compare-modal" tabindex="-1" role="dialog" aria-labelledby="comapre-modal-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h5 class="modal-title" id="compare-modal-label">Compare Layers</h5>
+            </div>
+            <div class="modal-body">
+                <h6>Left Window Options</h6>
+                <label>
+                    Select Run Date
+                </label>
+                <select class="rd_table" name="lrd_table" id="lrd_table" style="width: 100%"><option value="/home/tethys/walis_tethys/retrospective/201706/LIS_SERVIR_WA_201706300000.d09.nc" selected="selected">Invalid date</option><option value="/home/tethys/walis_tethys/retrospective/201811/LIS_SERVIR_WA_201811300000.d09.nc">Invalid date</option><option value="/home/tethys/walis_tethys/forecast_esp/201812/LIS_SERVIR_WA_201812100000.d09.nc">12/10/2018</option><option value="/home/tethys/walis_tethys/forecast_esp/201905/LIS_SERVIR_WA_201905310000.d09.nc">05/31/2019</option></select>
+                <br>
+                <label>
+                    Select a Variable
+                </label>
+                <select class="var_table select2-hidden-accessible" name="lvar_table" id="lvar_table" style="width: 100%" tabindex="-1" aria-hidden="true"><option value="Rainf" selected="selected">precipitation rate (kg m-2 s-1)</option><option value="Evap">total evapotranspiration (kg m-2 s-1)</option><option value="Qs">surface runoff (kg m-2 s-1)</option><option value="Qsb">subsurface runoff (kg m-2 s-1)</option><option value="SoilMoist_SF">surface soil moisture (m^3 m-3)</option><option value="SoilMoist_RZ">rootzone soil moisture (m^3 m-3)</option><option value="SoilMoist_TT">total soil moisture (m^3 m-3)</option><option value="CanopInt">canopy surface water (kg m-2)</option><option value="WaterTableD">water table depth (m)</option><option value="TWS">terrestrial water storage (mm)</option><option value="GWS">ground water storage (mm)</option><option value="TotalPrecip">total precipitation (kg m-2 s-1)</option><option value="Streamflow">streamflow (m3 s-1)</option><option value="RiverFlowVelocity">river flow velocity (m s-1)</option><option value="FloodedFrac">flooded fraction (-)</option><option value="SurfElev">surface water elevation (m)</option><option value="SWS">surface water storage (mm)</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-lvar_table-container"><span class="select2-selection__rendered" id="select2-lvar_table-container" title="precipitation rate (kg m-2 s-1)">precipitation rate (kg m-2 s-1)</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                <br>
+                <h6>Right Window Options</h6>
+                <label>
+                    Select Run Date
+                </label>
+                <select class="rd_table" name="rrd_table" id="rrd_table" style="width: 100%"><option value="/home/tethys/walis_tethys/retrospective/201706/LIS_SERVIR_WA_201706300000.d09.nc" selected="selected">Invalid date</option><option value="/home/tethys/walis_tethys/retrospective/201811/LIS_SERVIR_WA_201811300000.d09.nc">Invalid date</option><option value="/home/tethys/walis_tethys/forecast_esp/201812/LIS_SERVIR_WA_201812100000.d09.nc">12/10/2018</option><option value="/home/tethys/walis_tethys/forecast_esp/201905/LIS_SERVIR_WA_201905310000.d09.nc">05/31/2019</option></select>
+                <br>
+                <label>
+                    Select a Variable
+                </label>
+                <select class="var_table select2-hidden-accessible" name="rvar_table" id="rvar_table" style="width: 100%" tabindex="-1" aria-hidden="true"><option value="Rainf" selected="selected">precipitation rate (kg m-2 s-1)</option><option value="Evap">total evapotranspiration (kg m-2 s-1)</option><option value="Qs">surface runoff (kg m-2 s-1)</option><option value="Qsb">subsurface runoff (kg m-2 s-1)</option><option value="SoilMoist_SF">surface soil moisture (m^3 m-3)</option><option value="SoilMoist_RZ">rootzone soil moisture (m^3 m-3)</option><option value="SoilMoist_TT">total soil moisture (m^3 m-3)</option><option value="CanopInt">canopy surface water (kg m-2)</option><option value="WaterTableD">water table depth (m)</option><option value="TWS">terrestrial water storage (mm)</option><option value="GWS">ground water storage (mm)</option><option value="TotalPrecip">total precipitation (kg m-2 s-1)</option><option value="Streamflow">streamflow (m3 s-1)</option><option value="RiverFlowVelocity">river flow velocity (m s-1)</option><option value="FloodedFrac">flooded fraction (-)</option><option value="SurfElev">surface water elevation (m)</option><option value="SWS">surface water storage (mm)</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-rvar_table-container"><span class="select2-selection__rendered" id="select2-rvar_table-container" title="precipitation rate (kg m-2 s-1)">precipitation rate (kg m-2 s-1)</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                <br><br>
+                <div>
+                    <button type="button" class="btn btn-primary" id="btn-add-compare">Add Layers</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+      
+
+
+
+
+
+    
+
+    
+      <div id="page-attributes" data-username="" style="display: none;"></div>
+    
+
+    
+  
+      
+    
+  <link href="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/main.css" rel="stylesheet">
+
+
+    
+
+    
+
+  
+      <script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/cookies.js" type="text/javascript"></script>
+      <script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/app_base.js" type="text/javascript"></script>
+      
+      
+    
+  <script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/main.js" type="text/javascript"></script>
+
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/leaflet-side-by-side.js" type="text/javascript"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/shp.js" type="text/javascript"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/leaflet_005.js" type="text/javascript"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/leaflet_002.js" type="text/javascript"></script>
+<script src="Tethys%20Portal%20West%20Africa%20LIS%20Viewer_files/leaf.js" type="text/javascript"></script>
+
+  
+
+<div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="position: absolute; top: 187.5px; left: 70px; z-index: 1; display: none;"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all"><a class="ui-datepicker-prev ui-corner-all" data-handler="prev" data-event="click" title="Prev"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a><a class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click" title="Next"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a><div class="ui-datepicker-title"><span class="ui-datepicker-month">July</span>&nbsp;<span class="ui-datepicker-year">2019</span></div></div><table class="ui-datepicker-calendar"><thead><tr><th scope="col" class="ui-datepicker-week-end"><span title="Sunday">Su</span></th><th scope="col"><span title="Monday">Mo</span></th><th scope="col"><span title="Tuesday">Tu</span></th><th scope="col"><span title="Wednesday">We</span></th><th scope="col"><span title="Thursday">Th</span></th><th scope="col"><span title="Friday">Fr</span></th><th scope="col" class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th></tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">1</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">2</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">3</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">4</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">5</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">6</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">7</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">8</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">9</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">10</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">11</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">12</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">13</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">14</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">15</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">16</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">17</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">18</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">19</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">20</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">21</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">22</a></td><td class="  ui-datepicker-today" data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default ui-state-highlight" href="#">23</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">24</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">25</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">26</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">27</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">28</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">29</a></td><td class="  ui-datepicker-current-day" data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default ui-state-active" href="#">30</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="6" data-year="2019"><a class="ui-state-default" href="#">31</a></td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div></body></html>

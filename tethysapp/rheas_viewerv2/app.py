@@ -30,5 +30,4 @@ class RheasViewerv2(TethysAppBase):
                 controller='rheas_viewerv2.controllers.home'
             ),
         )
-
         return url_maps

@@ -120,6 +120,7 @@ function appendSuccessMessage(message, div_id) {
 
 //send data to database with error messages
 function ajax_update_database(ajax_url, ajax_data) {
+console.log(ajax_data);
     //backslash at end of url is required
     if (ajax_url.substr(-1) !== "/") {
         ajax_url = ajax_url.concat("/");
@@ -140,9 +141,8 @@ function ajax_update_database(ajax_url, ajax_data) {
             console.log(xhr.responseText);
         }
     })
-        .error(function(xhr, status, error) {
+        .fail(function(xhr, status, error) {
             console.log(xhr.responseText);
-            console.log(error);
         });
 
     return xhr;
@@ -280,6 +280,6 @@ function find_var_index(item,data){
 }
 
 $(function(){
-    $('#app-content-wrapper').removeClass('show-nav');
-    $(".toggle-nav").removeClass('toggle-nav');
+    // $('#app-content-wrapper').removeClass('show-nav');
+    // $(".toggle-nav").removeClass('toggle-nav');
 });
